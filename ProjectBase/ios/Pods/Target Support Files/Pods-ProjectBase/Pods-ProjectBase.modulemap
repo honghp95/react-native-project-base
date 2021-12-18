@@ -1,6 +1,0 @@
-module Pods_ProjectBase {
-  umbrella header "Pods-ProjectBase-umbrella.h"
-
-  export *
-  module * { export * }
-}

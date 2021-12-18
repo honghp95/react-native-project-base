@@ -1,6 +1,0 @@
-module Pods_ProjectBase_ProjectBaseTests {
-  umbrella header "Pods-ProjectBase-ProjectBaseTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
