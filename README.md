@@ -7,12 +7,9 @@ This project is a template for [React Native](https://reactnative.dev/) that can
 - Init project
 
 ```bash
-npx react-native init ProjectName --template @honghp95/react-native-project-base
+npx react-native init ProjectName --template react-native-project-base
 ```
-- Install node_modules:
-```bash
-yarn install
-```
+
 ## iOS config
 
 ## Android config
