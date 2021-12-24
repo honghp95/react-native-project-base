@@ -1,7 +1,7 @@
 /**
  * Created by Hong HP on 3/16/20.
  */
-import {postWithTimeout} from './networking'
+import {getWithTimeout, postWithTimeout} from './networking'
 import {baseUrl} from '../constants/constants'
 import {getWithCheckingToken} from './NetworkingAuth'
 
@@ -32,4 +32,12 @@ export function getRefreshToken(refreshToken) {
       refreshToken,
     },
   )
+}
+
+export function getAllAirLines() {
+  return getWithTimeout('https://api.instantwebtools.net/v1/airlines', {})
+}
+
+export function getPassengers(page, size) {
+  return getWithTimeout(`https://api.instantwebtools.net/v1/passenger?page=${page}&size=${size}`, {})
 }

@@ -1,40 +1,31 @@
-/**
- * Created by NL on 20/07/21.
- */
-import {useDispatch} from 'react-redux'
-import {useEffect, useState} from 'react'
-import {setGlobalIndicatorVisibility} from '../redux/actions/app'
-import {STATUS_CODE} from '../constants/constants'
+import React, {useState, useEffect} from 'react'
 import Toast from '../common/Toast'
 
-export default function useAPI(api, deps) {
-  const dispatch = useDispatch()
+export default function useGetAPI(api) {
+  const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
 
-  const [firstTimeLoading, setFirstTimeLoading] = useState(true)
-  const [ended, setEnded] = useState(false)
-
-  const asyncRequest = async () => {
-    firstTimeLoading && dispatch(setGlobalIndicatorVisibility(true))
-    const res = await api()
-    if (res?.code !== STATUS_CODE.success) throw new Error(res?.message)
-    let data = res?.data?.results || res?.data
-    if (!data?.length) {
-      setEnded(true)
-    }
-    setData(data)
-    setFirstTimeLoading(false)
-    dispatch(setGlobalIndicatorVisibility(false))
-  }
+  let isSubscribe = true
 
   useEffect(() => {
-    asyncRequest().catch(e => {
-      Toast.info(e.message)
-      dispatch(setGlobalIndicatorVisibility(false))
-    })
-  }, [...deps])
+    fetchData().then()
+    return () => (isSubscribe = false)
+  }, [])
 
-  return {
-    data,
+  const fetchData = async () => {
+    try {
+      const res = await api()
+      if (res?.status !== 200) throw res?.message
+      if (isSubscribe && res.status === 200) {
+        setData(res?.data || null)
+      }
+    } catch (error) {
+      Toast.error('Something went wrong')
+      console.log('%c useAPI', 'color:#4AF82F', error)
+    } finally {
+      isSubscribe && setIsLoading(false)
+    }
   }
+
+  return {isLoading, data}
 }
