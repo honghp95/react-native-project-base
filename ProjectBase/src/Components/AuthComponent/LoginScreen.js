@@ -3,16 +3,17 @@
  */
 
 import React, {useMemo, useState} from 'react'
-import TextInputView from '../../common/TextInputView'
 import {View, StyleSheet, ScrollView, useWindowDimensions} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import {useDispatch} from 'react-redux'
+
 import Colors from '../../Themes/Colors'
 import {responsiveHeight, responsiveWidth} from '../../Themes/Metrics'
-import {useDispatch} from 'react-redux'
 import {userLogin} from '../../redux/actions/user'
 import Toast from '../../common/Toast'
 import {localize} from '../../locale/I18nConfig'
 import ButtonView from '../../common/ButtonView'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import FloatTitleTextInput from '../../common/FloatTitleTextInput'
 
 export default function LoginScreen(props) {
   const [username, setUsername] = useState(__DEV__ ? '' : '')
@@ -35,18 +36,18 @@ export default function LoginScreen(props) {
   return (
     <ScrollView style={{flex: 1}} bounces={false} showsVerticalScrollIndicator={false}>
       <View style={[styles.container, {paddingTop: safeView.top, width, height}]}>
-        <TextInputView
-          placeholder={localize('loginScreen.email')}
-          style={{marginTop: responsiveHeight(10)}}
+        <FloatTitleTextInput
+          placeholderTextInput={localize('loginScreen.email')}
+          containerStyle={{marginVertical: responsiveHeight(10)}}
           onChangeText={setUsername}
           value={username}
         />
-        <TextInputView
-          placeholder={localize('loginScreen.password')}
-          style={{marginVertical: responsiveHeight(10)}}
-          secureTextEntry={true}
+        <FloatTitleTextInput
+          placeholderTextInput={localize('loginScreen.password')}
+          containerStyle={{marginVertical: responsiveHeight(10)}}
           onChangeText={setPassword}
           value={password}
+          isPassword
         />
         <ButtonView
           title={localize('loginScreen.login')}
