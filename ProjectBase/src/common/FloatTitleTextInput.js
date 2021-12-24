@@ -51,6 +51,7 @@ function FloatTitleTextInput(
 ) {
   const [secureText, setSecureText] = useState(true)
   const [isFocusedState, setIsFocused] = useState(false)
+  const [isFocusedInput, setIsFocusedInput] = useState(false)
 
   const inputRef = useRef(null)
 
@@ -78,9 +79,15 @@ function FloatTitleTextInput(
     },
   }))
 
-  const handleFocus = () => setIsFocused(true)
+  const handleFocus = () => {
+    setIsFocusedInput(true)
+    setIsFocused(true)
+  }
 
-  const handleBlur = () => setIsFocused(false)
+  const handleBlur = () => {
+    setIsFocusedInput(false)
+    setIsFocused(false)
+  }
 
   const setFocus = () => {
     if (editable) inputRef.current?.focus()
@@ -195,7 +202,7 @@ function FloatTitleTextInput(
             onFocus={onFocus !== undefined ? onFocus : handleFocus}
             onBlur={onBlur !== undefined ? onBlur : handleBlur}
           />
-          {isFocusedState && value?.length > 0 && pointerEvents !== 'none' && (
+          {isFocusedState && isFocusedInput && value?.length > 0 && pointerEvents !== 'none' && (
             <VectorIconButton
               style={{marginLeft: 5}}
               onPress={onClearText}
