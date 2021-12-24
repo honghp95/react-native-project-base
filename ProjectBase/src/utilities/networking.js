@@ -40,7 +40,7 @@ export function get(api, headers) {
     .then(response => {
       return response.json().then(data => {
         console.log('%cnetworking get', 'color:#4AF82F', api, data)
-        return {...data, status: response.status}
+        return {data, status: response.status}
       })
     })
     .catch(err => {
@@ -77,7 +77,7 @@ export function patch(api, headers, body) {
     .then(response => {
       return response.json().then(data => {
         console.log('%cnetworking patch', 'color:#4AF82F', body, api, data)
-        return {...data, status: response.status}
+        return {data, status: response.status}
       })
     })
     .catch(err => {
@@ -115,7 +115,7 @@ export function post(api, headers, body) {
     .then(response => {
       return response.json().then(data => {
         console.log('%cnetworking post', 'color:#4AF82F', body, api, data)
-        return {...data, status: response.status}
+        return {data, status: response.status}
       })
     })
     .catch(err => {
@@ -155,7 +155,7 @@ export function _delete(api, headers, body) {
         return
       }
       return response.json().then(data => {
-        return {...data, status: response.status}
+        return {data, status: response.status}
       })
     })
     .catch(err => {
@@ -194,7 +194,7 @@ export function put(api, headers, body) {
       console.log(response)
       return response.json().then(data => {
         console.log(data)
-        return {...data, status: response.status}
+        return {data, status: response.status}
       })
     })
     .catch(err => {
